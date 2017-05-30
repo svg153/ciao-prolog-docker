@@ -1,3 +1,4 @@
-if [ -f <v>libroot</v>/ciao/DOTprofile ]; then
-  . <v>libroot</v>/ciao/DOTprofile
+CIAO_PROFILE="/usr/lib/ciao/DOTprofile"
+if [ -f ${CIAO_PROFILE} ]; then
+  . ${CIAO_PROFILE}
 fi
