@@ -1,0 +1,3 @@
+if [ -f <v>libroot</v>/ciao/DOTprofile ]; then
+  . <v>libroot</v>/ciao/DOTprofile
+fi

@@ -1,0 +1,4 @@
+(load-file "<v>libroot</v>/ciao/ciao-mode-init.el")
+(if (file-exists-p "<v>libroot</v>/ciao/ciao-mode-init.el")
+  (load-file "<v>libroot</v>/ciao/ciao-mode-init.el")
+)
