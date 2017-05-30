@@ -1,0 +1,4 @@
+/WS/**
+
+# Whitelist some files
+!README.md
