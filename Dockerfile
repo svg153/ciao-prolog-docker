@@ -23,3 +23,10 @@ ENV CIAO /usr/lib/ciao/
 COPY addTo_bashrc /home/emacs/addTo_bashrc
 RUN cat /home/emacs/addTo_bashrc >> /home/emacs/.bashrc && \
     rm /home/emacs/addTo_bashrc
+
+# Emacs
+COPY addTo_emacs /home/emacs/addTo_emacs
+RUN mkdir -p /home/emacs/.emacs.d/ && \
+    touch /home/emacs/.emacs.d/init.el && \
+    cat /home/emacs/addTo_emacs >> /home/emacs/.emacs.d/init.el && \
+    rm /home/emacs/addTo_emacs
