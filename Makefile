@@ -1,7 +1,11 @@
+SHELL := /bin/bash
+
 
 pwd ?= `pwd`
 
 ALIAS ?= ciao
+UID := `ìd -u`
+GID := `ìd -g`
 #EMACS_PATH ?= ~/.emacs.d
 EMACS_PATH ?= $(pwd)/.emacs.d
 WS_PATH ?= $(pwd)/WS
@@ -18,10 +22,9 @@ all: clean
 		-e DISPLAY="unix$$DISPLAY" \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
-		-e GID="1000" \
 		-e UID="1000" \
-		-v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
-		-v $(WS_PATH):/mnt/workspace:rw \
+		-e GID="1000" \
+		-v $(WS_PATH):/home/emacs/workspace:rw \
 		$(ALIAS) emacs
 
 enter: clean
@@ -40,7 +43,6 @@ clean:
 ifneq "$(RUNNED)" ""
 	@docker kill $(ALIAS)
 endif
-	@docker ps -a -q | xargs -n 1 -I {} docker rm -f {}
 ifneq "$(STALE_IMAGES)" ""
 	@docker rmi -f $(STALE_IMAGES)
 endif
