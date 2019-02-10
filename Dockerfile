@@ -12,7 +12,7 @@ RUN dpkg --add-architecture i386 && \
 # Download ciao prolog
 #RUN wget -q http://www.clip.dia.fi.upm.es/packages/1.14/13646/CiaoDE-1.14.2-13646.i386.deb /home/emacs/ciao.deb
 # |-> ERROR: http://ciao-lang.org/cgi-bin/download.cgi?url=/packages/1.14/13646/CiaoDE-1.14.2-13646.i386.deb&list=ciao-users
-RUN wget -q https://ciao-lang.org/packages/1.14/13646/CiaoDE-1.14.2-13646.i386.deb -O ./ciao.deb
+RUN wget -q https://ciao-lang.org/legacy/files/ciao/ciao-1.14/13646/CiaoDE-1.14.2-13646.i386.deb -O ./ciao.deb
 RUN sudo dpkg -i ./ciao.deb
 RUN rm ./ciao.deb
 ENV CIAO /usr/lib/ciao/
