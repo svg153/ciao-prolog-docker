@@ -8,23 +8,35 @@ UID := `ìd -u`
 GID := `ìd -g`
 #EMACS_PATH ?= ~/.emacs.d
 EMACS_PATH ?= $(pwd)/.emacs.d
-WS_PATH ?= $(pwd)/WS
+WORKSPACE_PATH ?= $(pwd)/WS
+WORKSPACE_DOCKER_PATH ?= /home/emacs/workspace
 
 EXISTS := $(shell docker ps -a -q -f name=$(ALIAS))
 RUNNED := $(shell docker ps -q -f name=$(ALIAS))
 STALE_IMAGES := $(shell docker images | grep "<none>" | awk '{print($$3)}')
 
 
-all: clean
-	@docker build --file Dockerfile --tag $(ALIAS) .
-	@docker run -d --name $(ALIAS) \
+all: clean build run
+
+build:
+	@docker build \
+		--file Dockerfile \
+		--tag $(ALIAS) \
+		--build-arg WORKSPACE_ARG=$(WORKSPACE_DOCKER_PATH) \
+		.
+
+run:
+	@docker run \
+	    -d \
+		--name $(ALIAS) \
 		-v /tmp/.X11-unix:/tmp/.X11-unix:ro \
 		-e DISPLAY="unix$$DISPLAY" \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
-		-e UID="1000" \
-		-e GID="1000" \
-		-v $(WS_PATH):/home/emacs/workspace:rw \
+		-e UID="$(UID_tmp)" \
+		-e GID="$(GID_tmp)" \
+		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
+		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) emacs
 
 enter: clean
@@ -33,19 +45,24 @@ enter: clean
 		-e DISPLAY="unix$$DISPLAY" \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
-		-e GID="1000" \
-		-e UID="1000" \
+		-e UID="$(UID_tmp)" \
+		-e GID="$(GID_tmp)" \
 		-v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
-		-v $(WS_PATH):/mnt/workspace:rw \
+		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
+		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) /bin/bash
 
 clean:
 ifneq "$(RUNNED)" ""
 	@docker kill $(ALIAS)
 endif
+	-@docker rm $(ALIAS)
 ifneq "$(STALE_IMAGES)" ""
 	@docker rmi -f $(STALE_IMAGES)
 endif
+
+cleanAll:
+	-@docker rmi $(ALIAS)
 
 original:
 	$(eval ALIAS := emacs-ori)
@@ -55,12 +72,14 @@ endif
 ifneq "$(EXISTS)" ""
 	$(shell docker container rm $(ALIAS))
 endif
-	docker run -ti --name $(ALIAS) -v /tmp/.X11-unix:/tmp/.X11-unix:ro\
-		-e DISPLAY="unix$$DISPLAY"\
-		-e UNAME="emacser"\
-		-e GNAME="emacsers"\
-		-e UID="1000"\
-		-e GID="1000"\
+	docker run -ti --name $(ALIAS) \
+	    -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+		-e DISPLAY="unix$$DISPLAY" \
+		-e UNAME="emacser" \
+		-e GNAME="emacsers" \
+		-e UID="$(UID_tmp)" \
+		-e GID="$(GID_tmp)" \
 		-v $(EMACS_PATH):/home/emacs/.emacs.d \
-		-v $(WS_PATH):/mnt/workspace \
+		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
+		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		jare/emacs emacs
