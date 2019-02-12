@@ -4,8 +4,8 @@ SHELL := /bin/bash
 pwd ?= `pwd`
 
 ALIAS ?= ciao
-UID := `ìd -u`
-GID := `ìd -g`
+UID := `id -u`
+GID := `id -g`
 #EMACS_PATH ?= ~/.emacs.d
 EMACS_PATH ?= $(pwd)/.emacs.d
 WORKSPACE_PATH ?= $(pwd)/WS
@@ -33,11 +33,12 @@ run:
 		-e DISPLAY="unix$$DISPLAY" \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
-		-e UID="$(UID_tmp)" \
-		-e GID="$(GID_tmp)" \
+		-e UID="1000" \
+		-e GID="1000" \
 		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) emacs
+
 
 enter: clean
 	@docker run -ti --name $(ALIAS) \
@@ -45,8 +46,8 @@ enter: clean
 		-e DISPLAY="unix$$DISPLAY" \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
-		-e UID="$(UID_tmp)" \
-		-e GID="$(GID_tmp)" \
+		-e UID="1000" \
+		-e GID="1000" \
 		-v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
 		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
