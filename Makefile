@@ -57,7 +57,7 @@ enter: clean
 # -v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
 
 ciao: clean
-	@docker run -ti --name $(ALIAS) \
+	@docker run -ti --rm --name $(ALIAS) \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
 		-e UID="1000" \
