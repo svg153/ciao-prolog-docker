@@ -53,14 +53,14 @@ enter: clean
 		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) /bin/bash
-
+		
+# -v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
 ciao: clean
 	@docker run -ti --name $(ALIAS) \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
 		-e UID="1000" \
 		-e GID="1000" \
-		-v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
 		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) /bin/bash
