@@ -4,7 +4,6 @@ pwd ?= `pwd`
 ALIAS ?= ciao
 UID := `id -u`
 GID := `id -g`
-#EMACS_PATH ?= ~/.emacs.d
 EMACS_PATH ?= $(pwd)/.emacs.d
 WORKSPACE_PATH ?= $(pwd)/WS
 WORKSPACE_DOCKER_PATH ?= /home/emacs/workspace
