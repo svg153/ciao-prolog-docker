@@ -23,7 +23,7 @@ main :-
      nl.
 ```
 
-Then type `ciaoc hello.pl` to compile and execute it `./hello`
+Then type `C-c C-s` to save, `C-x C-c` to exit emacs. Then type `ciaoc hello.pl` to compile and execute it: `./hello`
 
 - Emacs GUI 
 
@@ -35,7 +35,7 @@ main :-
      nl.
 ```
 
-Then type `C-c l` to compile it and `C-c x` to make an executable
+Then type `C-c C-s` to save, `C-c l` to compile and `C-c x` to make an executable
 
 ### Your custom emacs config
 
