@@ -35,7 +35,7 @@ main :-
      nl.
 ```
 
-Then type `C-c l` to compile it
+Then type `C-c l` to compile it and `C-c x` to make an executable
 
 ### Your custom emacs config
 
