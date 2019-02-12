@@ -1,8 +1,6 @@
+#Variables
 SHELL := /bin/bash
-
-
 pwd ?= `pwd`
-
 ALIAS ?= ciao
 UID := `id -u`
 GID := `id -g`
@@ -11,8 +9,11 @@ EMACS_PATH ?= $(pwd)/.emacs.d
 WORKSPACE_PATH ?= $(pwd)/WS
 WORKSPACE_DOCKER_PATH ?= /home/emacs/workspace
 
+# Find stopped images
 EXISTS := $(shell docker ps -a -q -f name=$(ALIAS))
+# Find running images
 RUNNED := $(shell docker ps -q -f name=$(ALIAS))
+# Find old images
 STALE_IMAGES := $(shell docker images | grep "<none>" | awk '{print($$3)}')
 
 
@@ -53,6 +54,16 @@ enter: clean
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) /bin/bash
 
+ciao: clean
+	@docker run -ti --name $(ALIAS) \
+		-e UNAME="emacser" \
+		-e GNAME="emacsers" \
+		-e UID="1000" \
+		-e GID="1000" \
+		-v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
+		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
+		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
+		$(ALIAS) /bin/bash
 clean:
 ifneq "$(RUNNED)" ""
 	@docker kill $(ALIAS)
