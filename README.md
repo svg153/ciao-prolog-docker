@@ -13,15 +13,15 @@ make
 
 ## Hello World
 
-emacs hello.pl
+Type `emacs hello.pl`
 
-```main :-
-        write('Hello World'),
-        nl.
+```
+main :-
+     write('Hello World'),
+     nl.
 ```
 
-ciaoc hello.pl
-./hello
+Then type `ciaoc hello.pl` to compile and execute it `./hello`
               
 
 ### Your custom emacs config
