@@ -11,6 +11,19 @@ Type `make` and wait...
 make
 ```
 
+## Hello World
+
+emacs hello.pl
+
+```main :-
+        write('Hello World'),
+        nl.
+```
+
+ciaoc hello.pl
+./hello
+              
+
 ### Your custom emacs config
 
 Not for now... PRs are welcome.
