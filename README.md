@@ -13,6 +13,8 @@ make
 
 ## Hello World
 
+- Ciao CLI 
+
 Type `emacs hello.pl`
 
 ```
@@ -22,7 +24,18 @@ main :-
 ```
 
 Then type `ciaoc hello.pl` to compile and execute it `./hello`
-              
+
+- Emacs GUI 
+
+Type `emacs hello.pl`
+
+```
+main :-
+     write('Hello World'),
+     nl.
+```
+
+Then type `C-c l` to compile it
 
 ### Your custom emacs config
 
