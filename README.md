@@ -35,7 +35,12 @@ main :-
      nl.
 ```
 
-Then type `C-c C-s` to save, `C-c l` to compile and `C-c x` to make an executable
+Then type `C-c C-s` to save, `C-c l` to compile and `C-c x` to make an executable.
+
+```bash
+emacser@ciao-docker:~/workspace$ ./hello
+Hello World
+```
 
 ### Your custom emacs config
 
