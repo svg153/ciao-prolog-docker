@@ -18,12 +18,14 @@ STALE_IMAGES := $(shell docker images | grep "<none>" | awk '{print($$3)}')
 
 all: clean build run
 
+
 build:
 	@docker build \
 		--file Dockerfile \
 		--tag $(ALIAS) \
 		--build-arg WORKSPACE_ARG=$(WORKSPACE_DOCKER_PATH) \
 		.
+
 
 run:
 	@docker run \
@@ -38,8 +40,8 @@ run:
 		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) emacs
-
-
+		
+		
 enter: clean
 	@docker run -ti --name $(ALIAS) \
 		-v /tmp/.X11-unix:/tmp/.X11-unix:ro \
@@ -53,9 +55,8 @@ enter: clean
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) /bin/bash
 		
-# -v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
-
-ciao: clean
+		
+ciao:
 	@docker run -ti --rm --name $(ALIAS) \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
@@ -64,6 +65,8 @@ ciao: clean
 		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) /bin/bash
+		
+		
 clean:
 ifneq "$(RUNNED)" ""
 	@docker kill $(ALIAS)
@@ -73,8 +76,10 @@ ifneq "$(STALE_IMAGES)" ""
 	@docker rmi -f $(STALE_IMAGES)
 endif
 
+
 cleanAll:
 	-@docker rmi $(ALIAS)
+
 
 original:
 	$(eval ALIAS := emacs-ori)
