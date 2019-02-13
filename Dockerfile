@@ -16,12 +16,12 @@ RUN cd /home/emacs/ciao && ./ciao-boot.sh get devenv
 RUN export PATH=$PATH:~/ciao/build/bin
 
 # Emacs
-COPY addTo_emacs /home/emacs/addTo_emacs
+COPY add_to_emacs /home/emacs/add_to_emacs
 RUN mkdir -p /home/emacs/.emacs.d/ && \
     touch /home/emacs/.emacs.d/init.el && \
-    cat /home/emacs/addTo_emacs >> /home/emacs/.emacs.d/init.el && \
+    cat /home/emacs/add_to_emacs >> /home/emacs/.emacs.d/init.el && \
     echo "(setq default-directory \"${WORKSPACE}\")" >> /home/emacs/.emacs.d/init.el && \
-    rm /home/emacs/addTo_emacs
+    rm /home/emacs/add_to_emacs
 
 # Clean
 RUN apt-get clean && \
