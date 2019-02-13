@@ -1,4 +1,2 @@
-(load-file "/usr/lib/ciao/ciao-mode-init.el")
-(if (file-exists-p "/usr/lib/ciao/ciao-mode-init.el")
-    (load-file "/usr/lib/ciao/ciao-mode-init.el")
-)
+(if (file-exists-p "~/ciao/ciao_emacs/elisp/ciao-site-file.el")
+      (load-file "~/ciao/ciao_emacs/elisp/ciao-site-file.el"))
