@@ -2,9 +2,6 @@ FROM jare/emacs
 
 ARG WORKSPACE_ARG
 ENV WORKSPACE=${WORKSPACE_ARG}
-ENV libroot /opt/ciao
-
-
 
 # Update packages for ubuntu:lastest
 RUN apt-get -y update > /dev/null 2>&1 && \
@@ -16,7 +13,6 @@ RUN cd /home/emacs/ && git clone https://github.com/ciao-lang/ciao.git
 RUN cd /home/emacs/ciao && ./ciao-boot.sh get devenv
 
 # Configure ciao
-
 RUN export PATH=$PATH:~/ciao/build/bin
 
 # Emacs
