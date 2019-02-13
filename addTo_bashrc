@@ -1,4 +1,0 @@
-CIAO_PROFILE="/usr/lib/ciao/DOTprofile"
-if [ -f ${CIAO_PROFILE} ]; then
-  . ${CIAO_PROFILE}
-fi

@@ -1,41 +1,28 @@
 FROM jare/emacs
 
-
-
 ARG WORKSPACE_ARG
 ENV WORKSPACE=${WORKSPACE_ARG}
-ENV libroot /opt/ciao
-
-
+ENV PATH=$PATH:~/ciao/build/bin
 
 # Update packages for ubuntu:lastest
-RUN dpkg --add-architecture i386 && \
-    apt-get -y update > /dev/null 2>&1 && \
-    apt-get -y install \
-        wget libxm4:i386 \
+RUN apt-get -y update > /dev/null 2>&1 && \
+    apt-get -y install curl gcc git \
     > /dev/null 2>&1
 
-# Download ciao prolog
-RUN wget -q https://ciao-lang.org/legacy/files/ciao/ciao-1.14/13646/CiaoDE-1.14.2-13646.i386.deb -O ./ciao.deb
-RUN sudo dpkg -i ./ciao.deb
-RUN rm ./ciao.deb
-ENV CIAO /usr/lib/ciao/
-# -> path in .emacs.d/init.et
+# Download ciao prolog and install
+RUN git clone https://github.com/ciao-lang/ciao.git /home/emacs/ciao
+# || true To ignore an instalation error about LaTex dependencies
+RUN /home/emacs/ciao/ciao-boot.sh get devenv > /dev/null 2>&1 || true
+CMD chown -R emacser:emacsers /home/emacs/
 
-# Configure ciao
-COPY addTo_bashrc /home/emacs/addTo_bashrc
-RUN cat /home/emacs/addTo_bashrc >> /home/emacs/.bashrc && \
-    rm /home/emacs/addTo_bashrc
-
-# Emacs
-COPY addTo_emacs /home/emacs/addTo_emacs
+# Configure emacs
+COPY add_to_emacs /home/emacs/add_to_emacs
 RUN mkdir -p /home/emacs/.emacs.d/ && \
     touch /home/emacs/.emacs.d/init.el && \
-    cat /home/emacs/addTo_emacs >> /home/emacs/.emacs.d/init.el && \
+    cat /home/emacs/add_to_emacs >> /home/emacs/.emacs.d/init.el && \
     echo "(setq default-directory \"${WORKSPACE}\")" >> /home/emacs/.emacs.d/init.el && \
-    rm /home/emacs/addTo_emacs
+    rm /home/emacs/add_to_emacs
 
 # Clean
 RUN apt-get clean && \
-    apt-get -y autoremove && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get -y autoremove
