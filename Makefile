@@ -16,17 +16,18 @@ RUNNED := $(shell docker ps -q -f name=$(ALIAS))
 STALE_IMAGES := $(shell docker images | grep "<none>" | awk '{print($$3)}')
 
 
+# Remove previous containers, build new and run ciao
 all: clean build ciao
 
-
+# Build a new container
 build:
 	@docker build \
 		--file Dockerfile \
 		--tag $(ALIAS) \
 		--build-arg WORKSPACE_ARG=$(WORKSPACE_DOCKER_PATH) \
 		.
-
-
+		
+# Run emacs with ciao module on GUI
 run:
 	@docker run \
 	    -d \
@@ -41,22 +42,8 @@ run:
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) emacs
 		
-		
-enter: clean
-	@docker run -ti --name $(ALIAS) \
-		-v /tmp/.X11-unix:/tmp/.X11-unix:ro \
-		-e DISPLAY="unix$$DISPLAY" \
-		-e UNAME="emacser" \
-		-e GNAME="emacsers" \
-		-e UID="1000" \
-		-e GID="1000" \
-		-v $(EMACS_PATH):/home/emacs/.emacs.d:rw \
-		-e WORKSPACE=$(WORKSPACE_DOCKER_PATH) \
-		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
-		$(ALIAS) /bin/bash
-		
-		
-ciao:
+# Run ciao container		
+ciao: clean
 	@docker run -ti --rm --name $(ALIAS) \
 		-e UNAME="emacser" \
 		-e GNAME="emacsers" \
@@ -66,7 +53,7 @@ ciao:
 		-v $(WORKSPACE_PATH):$(WORKSPACE_DOCKER_PATH):rw \
 		$(ALIAS) /bin/bash
 		
-		
+# Clean ciao containers
 clean:
 ifneq "$(RUNNED)" ""
 	@docker kill $(ALIAS)
@@ -76,11 +63,11 @@ ifneq "$(STALE_IMAGES)" ""
 	@docker rmi -f $(STALE_IMAGES)
 endif
 
-
+# Remove ciao images
 cleanAll:
 	-@docker rmi $(ALIAS)
 
-
+# Old 
 original:
 	$(eval ALIAS := emacs-ori)
 ifneq "$(RUNNED)" ""
