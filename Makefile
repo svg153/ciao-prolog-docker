@@ -16,7 +16,7 @@ RUNNED := $(shell docker ps -q -f name=$(ALIAS))
 STALE_IMAGES := $(shell docker images | grep "<none>" | awk '{print($$3)}')
 
 
-all: clean build run
+all: clean build ciao
 
 
 build:
