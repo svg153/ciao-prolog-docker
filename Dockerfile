@@ -8,14 +8,13 @@ RUN apt-get -y update > /dev/null 2>&1 && \
     apt-get -y install curl gcc git \
     > /dev/null 2>&1
 
-# Download ciao prolog
-RUN git clone https://github.com/ciao-lang/ciao.git /home/emacs/
+# Download ciao prolog and install
+RUN git clone https://github.com/ciao-lang/ciao.git /home/emacs/ciao
 RUN /home/emacs/ciao-boot.sh get devenv > /dev/null 2>&1
-
-# Configure ciao
+RUN chown -R emacser:emacsers /home/emacs/
 RUN export PATH=$PATH:~/ciao/build/bin
 
-# Emacs
+# Configure emacs
 COPY add_to_emacs /home/emacs/add_to_emacs
 RUN mkdir -p /home/emacs/.emacs.d/ && \
     touch /home/emacs/.emacs.d/init.el && \
