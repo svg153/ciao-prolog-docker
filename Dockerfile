@@ -13,7 +13,7 @@ RUN apt-get -y update > /dev/null 2>&1 && \
 RUN git clone https://github.com/ciao-lang/ciao.git /home/emacs/ciao
 # || true To ignore an instalation error about LaTex dependencies
 RUN /home/emacs/ciao/ciao-boot.sh get devenv > /dev/null 2>&1 || true
-#RUN chown -R emacser:emacsers /home/emacs/
+CMD chown -R emacser:emacsers /home/emacs/
 
 # Configure emacs
 COPY add_to_emacs /home/emacs/add_to_emacs
