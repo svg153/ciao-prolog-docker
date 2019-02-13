@@ -11,7 +11,7 @@ RUN apt-get -y update > /dev/null 2>&1 && \
 # Download ciao prolog and install
 RUN git clone https://github.com/ciao-lang/ciao.git /home/emacs/ciao
 RUN /home/emacs/ciao-boot.sh get devenv > /dev/null 2>&1 || true
-RUN chown -R emacser:emacsers /home/emacs/
+#RUN chown -R emacser:emacsers /home/emacs/
 RUN export PATH=$PATH:~/ciao/build/bin
 
 # Configure emacs
