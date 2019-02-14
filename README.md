@@ -1,6 +1,11 @@
 ciao-prolog-docker
 ==================
 
+## Alternative 
+
+Install ciao on unix based S.O. without docker container.
+https://gist.github.com/jfagoagas/56d6633a741e831f8a109cab397d129f
+
 ## TLDR
 
 Copy your files to edit into the [`WS`](./WS) folder.
