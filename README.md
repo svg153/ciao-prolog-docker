@@ -51,6 +51,10 @@ Not for now... PRs are welcome.
 Install ciao on unix based S.O. without docker container.
 https://gist.github.com/jfagoagas/56d6633a741e831f8a109cab397d129f
 
+Debian 9 virtual machine with the develeoper environment for Ciao
+Link: https://mega.nz/#!EYIUkKpS
+Decryption key: A55JSS24hMFkrDPaJAmWbFKGHT8xieYopruhngpgOjg
+
 ## THANKS
 
 * [docker-emacs](https://github.com/JAremko/docker-emacs)
