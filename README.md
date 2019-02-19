@@ -48,7 +48,7 @@ Not for now... PRs are welcome.
 
 ## Alternative 
 
-Install ciao on unix based S.O. without docker container.
+Install Ciao on unix based O.S. without docker container.
 * https://gist.github.com/jfagoagas/56d6633a741e831f8a109cab397d129f
 
 Debian 9 virtual machine with the full developer environment for Ciao working along with emacs.
