@@ -53,7 +53,8 @@ Install ciao on unix based S.O. without docker container.
 
 Debian 9 virtual machine with the full developer environment for Ciao working along with emacs.
 * Link: https://mega.nz/#!EYIUkKpS 
-* Decryption key: `A55JSS24hMFkrDPaJAmWbFKGHT8xieYopruhngpgOjg` 
+* Decryption key: `A55JSS24hMFkrDPaJAmWbFKGHT8xieYopruhngpgOjg`  
+
 
 ## THANKS
 
