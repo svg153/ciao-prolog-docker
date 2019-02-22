@@ -12,7 +12,7 @@ RUN apt-get -y update > /dev/null 2>&1 && \
 # Download ciao prolog and install
 RUN git clone https://github.com/ciao-lang/ciao.git /home/emacs/ciao
 # || true To ignore an instalation error about LaTex dependencies
-RUN /home/emacs/ciao/ciao-boot.sh get devenv > /dev/null 2>&1 || true
+RUN /home/emacs/ciao/ciao-boot.sh get devenv --with-docs=no > /dev/null 2>&1 || true
 CMD chown -R emacser:emacsers /home/emacs/
 
 # Configure emacs
