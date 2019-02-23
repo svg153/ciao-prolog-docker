@@ -46,7 +46,7 @@ Hello World
 
 Not for now... PRs are welcome.
 
-## Alternative 
+## Alternatives
 
 Install Ciao on unix based O.S. without docker container.
 * https://gist.github.com/jfagoagas/56d6633a741e831f8a109cab397d129f
